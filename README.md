@@ -1,3 +1,3 @@
 cs-s01-e01
 ==========
-<h1>Test</h1>
+<a href="http://www.code-story.net/blog/posts/s03e01">Le concours</a> 
