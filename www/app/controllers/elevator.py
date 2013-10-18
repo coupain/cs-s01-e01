@@ -4,6 +4,7 @@ import web
 
 class Elevator(object):
   def GET(self, action):
+    params = web.input()
     if action == 'call':
 	  return
     elif action == 'go':
