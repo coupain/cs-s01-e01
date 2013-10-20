@@ -25,4 +25,3 @@ class Elevator(object):
             elevator.reset("")
     elif action == 'nextCommand':
       return elevator.getNextCommand()
-	

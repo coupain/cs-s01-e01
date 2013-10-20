@@ -5,5 +5,5 @@ from app.controllers.elevator import Elevator
 
 URLS = (
   r'^/', Index,
-  r'^/(call|go|userHasEntered|userHasExited|reset|nextCommand)', Elevator,
+  r'^/(call|go|userHasEntered|userHasExited|reset|nextCommand|nextCommand)', Elevator,
 )
