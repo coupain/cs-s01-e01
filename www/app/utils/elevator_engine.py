@@ -25,6 +25,7 @@ class ElevatorEngine:
     self._numberOfPassenger -= 1
 	
   def reset(self, message):
+    print("Reset, cause = " + message)
     self.__init__()
     
   @property
