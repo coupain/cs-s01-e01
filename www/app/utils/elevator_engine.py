@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from singleton import Singleton
-
 class ElevatorEngine:
+  ACTION_NOTHING = "NOTHING"
+  ACTION_OPEN = "OPEN"
+  ACTION_CLOSE = "CLOSE"
+  ACTION_UP = "UP"
+  ACTION_DOWN = "DOWN"
 
   def __init__(self):
     self._currentFloor = 0
