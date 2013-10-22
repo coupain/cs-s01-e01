@@ -14,9 +14,9 @@ class Elevator(object):
   def GET(self, action):
     params = web.input()
     if action == 'call':
-      elevator.call(params.atFloor,params.to)
+      elevator.call(int(params.atFloor),params.to)
     elif action == 'go':
-      elevator.go(params.floorToGo)
+      elevator.go(int(params.floorToGo))
     elif action == 'userHasEntered':
       elevator.userHasEntered()
     elif action == 'userHasExited':
