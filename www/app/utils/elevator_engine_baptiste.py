@@ -106,7 +106,7 @@ class ElevatorEngine:
     return ElevatorEngine.DIRECTION_UP if direction == ElevatorEngine.DIRECTION_DOWN else ElevatorEngine.DIRECTION_DOWN  
     
   def _goToReverseDirection(self, direction):
-    self._goToDirection(_reverseDirection(self._currentDirection))
+    self._goToDirection(self._reverseDirection(self._currentDirection))
     
   def _goToCurrentReverseDirection(self):
     self._goToReverseDirection(self._currentDirection)
