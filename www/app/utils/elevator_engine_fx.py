@@ -21,7 +21,7 @@ class ElevatorEngine:
     self._floorSelected = -1
   
   def call(self, atFloor, to):
-    web.debug('call at ' + atFloor + ' to floor ' + to)
+    web.debug('call at ' + atFloor + ' in direction' + to)
     wp = WaitingPerson(atFloor,to)
     self._waitingList.put(wp)
     return

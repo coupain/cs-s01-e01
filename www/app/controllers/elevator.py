@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import web
+from importlib import import_module
+from settings import ENGINE
+#from app.utils.elevator_engine import ElevatorEngine
 
-from app.utils.elevator_engine import ElevatorEngine
+ElevatorEngine = import_module('app.utils.' + ENGINE).ElevatorEngine
 
 #Using a global for Elevator engine... meh :(
 elevator = ElevatorEngine()
