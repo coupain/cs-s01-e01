@@ -64,7 +64,7 @@ class ElevatorEngine:
         return ElevatorEngine.ACTION_OPEN
       
       elif self.currentCommand == ElevatorEngine.ACTION_OPEN: #Doors where open
-        self._isBusy = true #Now the person is in the elevator
+        self._isBusy = True #Now the person is in the elevator
         self._currentCommand = ElevatorEngine.ACTION_CLOSE
         return ElevatorEngine.ACTION_CLOSE
         
@@ -94,7 +94,7 @@ class ElevatorEngine:
       
       elif self.currentCommand == ElevatorEngine.ACTION_NOTHING: #Doors are open, the person is gone
         self._currentCommand = ElevatorEngine.ACTION_NOTHING
-        self._isBusy = false
+        self._isBusy = False
         return ElevatorEngine.ACTION_NOTHING
     
   @property
