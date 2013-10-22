@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import Queue
+import web
 from app.utils.waiting_person import WaitingPerson
 
 class ElevatorEngine:
