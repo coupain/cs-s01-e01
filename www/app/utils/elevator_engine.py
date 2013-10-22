@@ -26,7 +26,7 @@ class ElevatorEngine:
     return
 	
   def go(self, floorToGo):
-    web.debug('go to floor' + floorToGo')
+    web.debug('go to floor' + floorToGo)
     self._floorSelected = floorToGo
     return
 	
