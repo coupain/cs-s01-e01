@@ -18,7 +18,7 @@ class ElevatorEngine:
   FLOOR_MAX = 5
 
   def __init__(self):
-    self._currentDirection = ElevatorEngine.DIRECTION_NONE
+    self._currentDirection = ElevatorEngine.DIRECTION_UP
     self._commands = Queue.Queue() #FIFO
     self._stopsUp = set() #Store all stop that the elevator must do while going UP
     self._stopsDown = set() #Store all stop that the elevator must do while going DOWN
@@ -99,6 +99,29 @@ class ElevatorEngine:
     print("Reset, cause = " + message)
     self.__init__()
     
+  def _reverseCurrentDirection(self):
+    return self._reverseDirection(self._currentDirection)
+    
+  def _reverseDirection(self, direction):
+    return ElevatorEngine.DIRECTION_UP if direction == ElevatorEngine.DIRECTION_DOWN else ElevatorEngine.DIRECTION_DOWN  
+    
+  def _goToReverseDirection(self, direction):
+    self._goToDirection(_reverseDirection(self._currentDirection))
+    
+  def _goToCurrentReverseDirection(self):
+    self._goToReverseDirection(self._currentDirection)
+      
+  def _goToCurrentDirection(self):
+    self._goToDirection(self._currentDirection)
+      
+  def _goToDirection(self, direction):
+    if direction == ElevatorEngine.DIRECTION_UP:
+      self._goUp()
+    elif direction == ElevatorEngine.DIRECTION_DOWN:
+      self._goDown()
+    else:
+      self._goUp()
+    
   def getNextCommand(self):
     if self._currentFloor in self._stops:
       self._openDoors()
@@ -106,10 +129,10 @@ class ElevatorEngine:
       self._openDoors()
     elif self._currentDirection == ElevatorEngine.DIRECTION_DOWN and self._currentFloor in self._stopsDown:
       self._openDoors()
-    elif self._numberOfStopsInDirection(ElevatorEngine.DIRECTION_UP) != 0:
-      self._goUp()
-    elif self._numberOfStopsInDirection(ElevatorEngine.DIRECTION_DOWN) != 0:
-      self._goDown()
+    elif self._numberOfStopsInDirection(self._currentDirection) != 0:
+      self._goToCurrentDirection()
+    elif self._numberOfStopsInDirection(self._reverseCurrentDirection()) != 0:
+      self._goToCurrentReverseDirection()
       
     ##
     if self._actions.empty():
