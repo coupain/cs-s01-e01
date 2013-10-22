@@ -100,10 +100,7 @@ class ElevatorEngine:
     self.__init__()
     
   def getNextCommand(self):
-    if self._currentDirection == ElevatorEngine.DIRECTION_NONE:
-      if len(self._stopsUp) != 0:
-        self._goUp()
-    elif self._currentFloor in self._stops:
+    if self._currentFloor in self._stops:
       self._openDoors()
     elif self._currentDirection == ElevatorEngine.DIRECTION_UP and self._currentFloor in self._stopsUp:
       self._openDoors()
