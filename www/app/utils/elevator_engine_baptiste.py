@@ -114,7 +114,7 @@ class ElevatorEngine:
       action = ElevatorEngine.ACTION_NOTHING
     else:
       action = self._actions.get()
-    web.debug("action %s at floor %d" % (action, self._currentFloor)
+    web.debug("action %s at floor %d" % (action, self._currentFloor))
     return action
     
   def _addStop(self, floor, direction):
