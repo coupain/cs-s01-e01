@@ -41,9 +41,9 @@ class ElevatorEngine:
 
   def _numberOfStopsInDirection(self, direction):
     if direction == ElevatorEngine.DIRECTION_UP:
-      intersect = self._stopsUp.union(self._stops).intersection(range(self._currentFloor, ElevatorEngine.FLOOR_MAX, 1))
+      intersect = self._stopsUp.union(self._stops).intersection(range(self._currentFloor, ElevatorEngine.FLOOR_MAX+1, 1))
     elif direction == ElevatorEngine.DIRECTION_DOWN: 
-      intersect = self._stopsDown.union(self._stops).intersection(range(self._currentFloor, 0, -1))
+      intersect = self._stopsDown.union(self._stops).intersection(range(self._currentFloor, 0-1, -1))
     else:
       ##FIXME: maybe another choice ?
       return False
