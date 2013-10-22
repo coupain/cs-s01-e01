@@ -114,11 +114,12 @@ class ElevatorEngine:
       action = ElevatorEngine.ACTION_NOTHING
     else:
       action = self._actions.get()
-    web.debug('action: ' + action)
+    web.debug("action %s at floor %d" % (action, self._currentFloor)
     return action
     
   def _addStop(self, floor, direction):
-    if direction == ElevatorEngine.ACTION_UP:
+    web.debug("Adding stop to %d in direction %s" % (floor, direction))
+    if direction == ElevatorEngine.DIRECTION_UP:
       self._stopsUp.add(floor)
     else:
       self._stopsDown.add(floor)
