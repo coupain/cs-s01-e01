@@ -22,6 +22,7 @@ class ElevatorEngine:
     self._commands = Queue.Queue() #FIFO
     self._stopsUp = set() #Store all stop that the elevator must do while going UP
     self._stopsDown = set() #Store all stop that the elevator must do while going DOWN
+    self._stops = set() #Store stops that must be done no matter the direction
     self._currentFloor = 0
     self._doorsClosed = True
     self._actions = Queue.Queue() # Store all actions to do
@@ -35,19 +36,19 @@ class ElevatorEngine:
   def go(self, floorToGo):
     web.debug("user want to go to %d" % (floorToGo))
     #FIXME: handle when floorToGo == currentFloor
-    self._handleCall(floorToGo, ElevatorEngine.DIRECTION_UP if floorToGo > self._currentFloor else ElevatorEngine.DIRECTION_DOWN)
+    self._handleCall(floorToGo, ElevatorEngine.DIRECTION_NONE)
     return
 
-  def _hasStopInDirection(self, direction):
+  def _numberOfStopsInDirection(self, direction):
     if direction == ElevatorEngine.DIRECTION_UP:
-      intersect = self._stopsUp.intersection(range(self._currentFloor, ElevatorEngine.FLOOR_MAX, 1))
+      intersect = self._stopsUp.union(self._stops).intersection(range(self._currentFloor, ElevatorEngine.FLOOR_MAX, 1))
     elif direction == ElevatorEngine.DIRECTION_DOWN: 
-      intersect = self._stopsDown.intersection(range(self._currentFloor, 0, -1))
+      intersect = self._stopsDown.union(self._stops).intersection(range(self._currentFloor, 0, -1))
     else:
       ##FIXME: maybe another choice ?
       return False
       
-    return len(intersect) != 0
+    return len(intersect)
       
   def _openDoors(self):
     self._actions.put(ElevatorEngine.ACTION_OPEN)
@@ -64,6 +65,8 @@ class ElevatorEngine:
       self._stopsUp.remove(floor)
     if self._currentFloor in self._stopsDown:
       self._stopsDown.remove(floor)
+    if self._currentFloor in self._stops:
+      self._stops.remove(floor)
     
   def _handleCall(self, floor, direction):
     if floor == self._currentFloor:
@@ -100,13 +103,15 @@ class ElevatorEngine:
     if self._currentDirection == ElevatorEngine.DIRECTION_NONE:
       if len(self._stopsUp) != 0:
         self._goUp()
+    elif self._currentFloor in self._stops:
+      self._openDoors()
     elif self._currentDirection == ElevatorEngine.DIRECTION_UP and self._currentFloor in self._stopsUp:
       self._openDoors()
     elif self._currentDirection == ElevatorEngine.DIRECTION_DOWN and self._currentFloor in self._stopsDown:
       self._openDoors()
-    elif self._hasStopInDirection(ElevatorEngine.DIRECTION_UP):
+    elif self._numberOfStopsInDirection(ElevatorEngine.DIRECTION_UP) != 0:
       self._goUp()
-    elif self._hasStopInDirection(ElevatorEngine.DIRECTION_DOWN):
+    elif self._numberOfStopsInDirection(ElevatorEngine.DIRECTION_DOWN) != 0:
       self._goDown()
       
     ##
@@ -121,5 +126,7 @@ class ElevatorEngine:
     web.debug("Adding stop to %d in direction %s" % (floor, direction))
     if direction == ElevatorEngine.DIRECTION_UP:
       self._stopsUp.add(floor)
-    else:
+    elif direction == ElevatorEngine.DIRECTION_DOWN:
       self._stopsDown.add(floor)
+    else:
+      self._stops.add(floor)
