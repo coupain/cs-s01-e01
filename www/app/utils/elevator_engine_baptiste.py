@@ -40,7 +40,7 @@ class ElevatorEngine:
     if direction == ElevatorEngine.DIRECTION_UP:
       intersect = self._stopsUp.intersection(range(self._currentFloor, ElevatorEngine.FLOOR_MAX, 1))
     elif direction == ElevatorEngine.DIRECTION_DOWN: 
-      intersect = self._stopsUp.intersection(range(self._currentFloor, 0, -1))
+      intersect = self._stopsDown.intersection(range(self._currentFloor, 0, -1))
     else:
       ##FIXME: maybe another choice ?
       return False
