@@ -28,10 +28,12 @@ class ElevatorEngine:
     self._numberOfPassenger = 0
   
   def call(self, atFloor, to):
+    web.debug("call at %d to %s" % (atFloor, to))
     self._handleCall(atFloor, to)
     return
 	
   def go(self, floorToGo):
+    web.debug("user want to go to %d" % (floorToGo))
     #FIXME: handle when floorToGo == currentFloor
     self._handleCall(floorToGo, ElevatorEngine.DIRECTION_UP if floorToGo > self._currentFloor else ElevatorEngine.DIRECTION_DOWN)
     return
