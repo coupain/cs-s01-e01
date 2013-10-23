@@ -148,6 +148,11 @@ class ElevatorEngine:
     
   def _addStop(self, floor, direction):
     web.debug("Adding stop to %d in direction %s" % (floor, direction))
+    
+    #If floor is top or bottom, no matter the direction
+    if floor == ElevatorEngine.FLOOR_MAX or floor == 0:
+      direction = ElevatorEngine.DIRECTION_NONE
+    
     if direction == ElevatorEngine.DIRECTION_UP:
       self._stopsUp.add(floor)
     elif direction == ElevatorEngine.DIRECTION_DOWN:
