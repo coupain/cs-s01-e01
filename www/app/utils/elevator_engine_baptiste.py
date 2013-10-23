@@ -123,6 +123,9 @@ class ElevatorEngine:
       self._goUp()
     
   def getNextCommand(self):
+    web.debug("stops up:" + " - ".join(str(s) for s in self._stopsUp))
+    web.debug("stops down:" + " - ".join(str(s) for s in self._stopsDown))
+    web.debug("stops:" + " - ".join(str(s) for s in self._stopsDown))
     if self._currentFloor in self._stops:
       self._openDoors()
     elif self._currentDirection == ElevatorEngine.DIRECTION_UP and self._currentFloor in self._stopsUp:
