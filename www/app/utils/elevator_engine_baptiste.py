@@ -51,7 +51,8 @@ class ElevatorEngine:
     return len(intersect)
       
   def _openDoors(self):
-    self._actions.put(ElevatorEngine.ACTION_OPEN)
+    if self._doorsClosed == True:
+      self._actions.put(ElevatorEngine.ACTION_OPEN)
     self._handleStop(self._currentFloor)
     self._doorsClosed = False
     
